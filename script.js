@@ -94,46 +94,50 @@ function iniciarGiro() {
   const ruleta = document.getElementById("ruleta");
 
   fadeOut(musica);
-
+  
   sonidoRuleta.currentTime = 0;
   sonidoRuleta.volume = 0.7;
-
+  
   sonidoRuleta.play().then(() => {
     const duracion = sonidoRuleta.duration;
-    const tiempoRapido = Math.max(duracion - 4.8, 0);
-    const vueltasRapidas = 6 * tiempoRapido;
+  
+    // Dividimos el tiempo total en 70% rápido y 30% lento
+    const porcentajeRapido = 0.7;
+    const tiempoRapido = duracion * porcentajeRapido;
+    const tiempoLento = duracion * (1 - porcentajeRapido);
+  
+    // Cálculo de grados según duración
+    const vueltasRapidas = 6 * tiempoRapido; // vueltas por segundo
     const gradosRapidos = 360 * vueltasRapidas;
-    const gradosLentos = 720;
+    const gradosLentos = 720; // siempre al menos 2 vueltas
     const gradosFinales = gradosRapidos + gradosLentos + premio.angulo;
-
+  
     // Reset visual
     ruleta.style.transition = "none";
     ruleta.style.transform = "rotate(0deg)";
     void ruleta.offsetWidth;
-
+  
     // Giro rápido
     ruleta.style.transition = `transform ${tiempoRapido}s linear`;
     ruleta.style.transform = `rotate(${gradosRapidos}deg)`;
-
-    // Desaceleración
+  
+    // Giro lento (desaceleración)
     setTimeout(() => {
-      ruleta.style.transition = "transform 5s cubic-bezier(0.1, 0.9, 0.3, 1)";
+      ruleta.style.transition = `transform ${tiempoLento}s cubic-bezier(0.1, 0.9, 0.3, 1)`;
       ruleta.style.transform = `rotate(${gradosFinales}deg)`;
     }, tiempoRapido * 1000);
-
-    // Al terminar el sonido
-    sonidoRuleta.onended = () => {
-      // 🔊 Reproducir sonido de ganador (corregido)
+  
+    // Al finalizar todo el audio (duración total)
+    setTimeout(() => {
       if (sonidoGanador) {
         sonidoGanador.currentTime = 0;
         sonidoGanador.volume = 0.9;
         sonidoGanador.play().catch(() => {});
-        ruletaGirando = false;
       }
-
+  
       const premioObtenido = detectarPremioPorAngulo(gradosFinales);
       mostrarPopup(premioObtenido);
-
+  
       if (premioObtenido === "OTRO GIRO") {
         permitirReintento = true;
       } else {
@@ -141,7 +145,10 @@ function iniciarGiro() {
         permitirReintento = false;
         yaGiro = true;
       }
-    };
+  
+      ruletaGirando = false;
+    }, duracion * 1000);
+  
   }).catch(err => {
     console.error("Error al reproducir el sonido de ruleta:", err);
   });
