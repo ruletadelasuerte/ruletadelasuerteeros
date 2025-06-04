@@ -29,15 +29,15 @@ const premios = [
   { nombre: "50% BONO", angulo: 300 }
 ];
 
+const casinoID = "eros";
 const musica = document.getElementById("musica-fondo");
 const sonidoRuleta = document.getElementById("sonido-ruleta");
 const sonidoGanador = document.getElementById("sonido-ganador");
 
 const hoy = new Date().toISOString().split("T")[0];
 let permitirReintento = false;
-let yaGiro = localStorage.getItem("ultimoGiro") === hoy;
+let yaGiro = localStorage.getItem(`ultimoGiro_${casinoID}`) === hoy;
 let ruletaGirando = false;
-const casinoID = "eros";
 
 // ------------------------ EFECTOS DE AUDIO ------------------------
 function fadeOut(audio, duration = 1000) {
@@ -213,7 +213,7 @@ function mostrarPopupAviso() {
   const mensaje = document.getElementById("mensaje-aviso");
 
   // Obtener premio y fecha del localStorage o definir por defecto
-  const premio = localStorage.getItem("premioObtenido") || "un premio";
+  const premio = localStorage.getItem(`premioObtenido_${casinoID}`) || "un premio";
   const fechaHoy = new Date().toLocaleDateString('es-AR', {
     day: '2-digit',
     month: '2-digit',
