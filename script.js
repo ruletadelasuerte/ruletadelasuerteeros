@@ -37,6 +37,7 @@ const hoy = new Date().toISOString().split("T")[0];
 let permitirReintento = false;
 let yaGiro = localStorage.getItem("ultimoGiro") === hoy;
 let ruletaGirando = false;
+const casinoID = "eros";
 
 // ------------------------ EFECTOS DE AUDIO ------------------------
 function fadeOut(audio, duration = 1000) {
@@ -136,13 +137,13 @@ function iniciarGiro() {
       }
   
       const premioObtenido = detectarPremioPorAngulo(gradosFinales);
-      localStorage.setItem("premioObtenido", premioObtenido);
+      localStorage.setItem(`premioObtenido_${casinoID}`, premioObtenido);
       mostrarPopup(premioObtenido);
   
       if (premioObtenido === "OTRO GIRO") {
         permitirReintento = true;
       } else {
-        localStorage.setItem("ultimoGiro", hoy);
+        localStorage.setItem(`ultimoGiro_${casinoID}`, hoy);
         permitirReintento = false;
         yaGiro = true;
       }
