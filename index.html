@@ -53,6 +53,8 @@
   <!-- POPUP DE PREMIO -->
   <div id="popup-premio" class="popup-container hidden">
     <div class="popup">
+      <!-- ⏱️ Fecha y hora -->
+      <div class="popup-fecha" id="popup-fecha"></div>
       <button class="cerrar-btn" onclick="cerrarPopup()">X</button>
       <h2>¡GANASTE!</h2>
       <h1 id="texto-premio">BONO 200%</h1>
@@ -60,12 +62,11 @@
     </div>
   </div>
 
-  <!-- POPUP DE AVISO 🌊 -->
+  <!-- POPUP DE AVISO 🎲 -->
   <div id="popup-aviso" class="popup-container hidden">
     <div class="popup">
       <button class="cerrar-btn" onclick="cerrarPopupAviso()">X</button>
-      <h2>¡Hola!</h2>
-      <h1 style="font-size: 20px;">Ya usaste tu oportunidad.<br>Volvé mañana☀️</h1>
+      <div id="mensaje-aviso" class="popup-aviso-texto"></div>
       <button class="aceptar-btn" onclick="cerrarPopupAviso()">Aceptar</button>
     </div>
   </div>
