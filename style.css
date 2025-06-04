@@ -414,3 +414,24 @@ body, html {
     opacity: 1;
   }
 }
+
+
+.popup-fecha {
+  position: absolute;
+  top: 12px;
+  left: 15px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 0 0 5px #000, 0 0 8px #FFD700;
+}
+
+.popup-aviso-texto {
+  color: #FFD700; /* dorado/amarillo fuerte */
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-shadow: 0 0 5px #000, 0 0 10px #FFD700;
+}
